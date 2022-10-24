@@ -246,6 +246,15 @@ open class Jukebox: NSObject, JukeboxItemDelegate {
         }
     }
     
+    open var rate:Float {
+        get {
+            return player?.rate ?? 0.0
+        }
+        set {
+            player?.rate = newValue
+        }
+    }
+    
     open var currentItem: JukeboxItem? {
         guard playIndex >= 0 && playIndex < queuedItems.count else {
             return nil
