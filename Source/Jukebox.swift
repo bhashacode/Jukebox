@@ -369,7 +369,9 @@ open class Jukebox: NSObject, JukeboxItemDelegate {
             if let player = player {
                 player.play()
             } else {
+                
                 currentItem!.refreshPlayerItem(withAsset: currentItem!.playerItem!.asset)
+                guard currentItem?.playerItem != nil else {return}
                 startNewPlayer(forItem: currentItem!.playerItem!)
             }
             state = .playing
@@ -387,6 +389,7 @@ open class Jukebox: NSObject, JukeboxItemDelegate {
     }
     
     fileprivate func startNewPlayer(forItem item : AVPlayerItem) {
+        player = nil
         invalidatePlayback(shouldResetIndex: false)
         player = AVPlayer(playerItem: item)
         player?.allowsExternalPlayback = false

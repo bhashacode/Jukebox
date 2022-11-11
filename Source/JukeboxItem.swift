@@ -94,7 +94,9 @@ open class JukeboxItem: NSObject {
     }
     
     deinit {
-        playerItem?.removeObserver(self, forKeyPath: observedValue)
+        if playerItem?.observationInfo != nil {
+            playerItem?.removeObserver(self, forKeyPath: observedValue)
+        }
     }
     
     // MARK: - Internal methods -
