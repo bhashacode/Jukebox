@@ -124,7 +124,9 @@ open class JukeboxItem: NSObject {
     }
     
     func refreshPlayerItem(withAsset asset: AVAsset) {
-        playerItem?.removeObserver(self, forKeyPath: observedValue)
+        if playerItem?.observationInfo != nil {
+            playerItem?.removeObserver(self, forKeyPath: observedValue)
+        }
         playerItem = AVPlayerItem(asset: asset)
         playerItem?.addObserver(self, forKeyPath: observedValue, options: NSKeyValueObservingOptions.new, context: nil)
         update()
